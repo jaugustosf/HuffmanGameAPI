@@ -21,16 +21,8 @@ public class GameController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<InitialGameResponse> startGame(@RequestBody String text) {
+    public ResponseEntity<GameDTOs> startGame(@RequestBody String text) {
         List<HuffmanNode> nodes = gameService.generateInitialNodes(text);
-        return ResponseEntity.ok(new InitialGameResponse(nodes));
+        return ResponseEntity.ok(new GameDTOs(nodes));
     }
-
-    @PostMapping("/validate")
-    public ResponseEntity<GameDTOs.ValidationResponse> validateTree(@RequestBody GameDTOs.ValidationRequest request) {
-        GameDTOs.ValidationResponse response = gameService.validateUserTree(request);
-        return ResponseEntity.ok(response);
-    }
-
-    public record InitialGameResponse(List<HuffmanNode> initialNodes) {}
 }
